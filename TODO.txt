@@ -1,0 +1,8 @@
+--Ronda 9--
+Gestor de categorias (Como phpbb3)
+Pasar a php orientado a objetos
+account_meta para firma, ocupacion, avatar, etc (como wordpress) permite añadir y quitar campos a gusto
+Permisos segun rangos para TODO
+Pagina del UCP para cambiar los permisos de acceso (amigos y eso)
+
+PUBLICAR PRIMERA VERSION!!
