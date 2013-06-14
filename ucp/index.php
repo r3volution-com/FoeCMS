@@ -18,9 +18,7 @@
 			if ($newemail != $row["email"]) {
 				setUser("email", $newemail);
 				die ("<script>location.href='../msg.php?e=user_emailchanged&r='+location.href;</script>");
-			} else {
-				die ("<script>location.href='../msg.php?e=user_bademail&r='+location.href;</script>");
-			}
+			} else die ("<script>location.href='../msg.php?e=user_bademail&r='+location.href;</script>");
 		} else if (isset($_POST["oldpw"]) && isset($_POST["newpw"]) && isset($_POST["renewpw"]) && $_POST["oldpw"] != "" && $_POST["newpw"] != "" && $_POST["renewpw"] != "") {
 			$actpw = $user_row["pass_sha"];
 			$oldpw = sha1(mysql_real_escape_string($_POST["oldpw"]));
@@ -28,9 +26,7 @@
 			if ($actpw == $oldpw && $newpw == $_POST["renewpw"]) {
 				setUser("pass_sha", sha1($newpw));
 				die ("<script>location.href='../msg.php?e=user_passchanged&r='+location.href;</script>");
-			} else {
-				die ("<script>location.href='../msg.php?e=user_badpass&r='+location.href;</script>");
-			}
+			} else die ("<script>location.href='../msg.php?e=user_badpass&r='+location.href;</script>");
 		} else if (isset($_POST["secretask"]) && isset($_POST["secretanswer"]) && $_POST["secretask"] != "" && $_POST["secretanswer"] != "" && $_POST["secretask"] != $user_row["secret_ask"] && $_POST["secretanswer"] != $user_row["secret_answer_sha"]) {
 			$sask = $_POST["secretask"];
 			$sanswer = $_POST["secretanswer"];
@@ -42,9 +38,7 @@
 				setUser("secret_ask", $secret_ask);
 				setUser("secret_answer_sha", $secret_answer);
 				die ("<script>location.href='../msg.php?e=user_secretaskchanged&r='+location.href;</script>");
-			} else {
-				die ("<script>location.href='../msg.php?e=user_badsecretask&r='+location.href;</script>");
-			}
+			} else die ("<script>location.href='../msg.php?e=user_badsecretask&r='+location.href;</script>");
 		} else if ((isset($_FILES['avatarf']['name']) && $_FILES['avatarf']['name']) || (isset($_POST["avataru"]) && $_POST["avataru"] != $user_row["avatar"])) {
 			if ($_FILES['avatarf']['name']) {
 				if ($user_row["avatar"] && !strstr($user_row["avatar"], 'http://')) unlink($user_row["avatar"]); 
@@ -55,9 +49,7 @@
 					$file = $ROOT_HTML."storecontent/image/avatar/".basename($_FILES['avatarf']['name']); 
 					move_uploaded_file($_FILES['avatarf']['tmp_name'], $filer);
 				} else $file = "";
-			} else if ($_POST["avataru"] && strstr($_POST["avataru"], 'http://')) {
-				$file = $_POST["avataru"];
-			}
+			} else if ($_POST["avataru"] && strstr($_POST["avataru"], 'http://')) $file = $_POST["avataru"];
 			setUser("avatar", $file);
 			die ("<script>location.href='../msg.php?e=user_avatarchanged&r='+location.href;</script>");
 		} 
@@ -76,12 +68,8 @@
 				else  $emailtext = parseMetacodes(getConfig("mail_mp"), $row["username"], $row["email"], "http://".$_SERVER['HTTP_HOST']."/ucp/index.php?c=2");
 				mail($row['email'], _l("mp_email"), $emailtext, $headers);
 				die ("<script>location.href='../msg.php?e=mp_success&r='+location.href;</script>");
-			} else {
-				die ("<script>location.href='../msg.php?e=mp_error&r='+location.href;</script>");
-			}
-		} else {
-			include($STYLE_HTML."ucpmp_style.php");
-		}
+			} else die ("<script>location.href='../msg.php?e=mp_error&r='+location.href;</script>");
+		} else include($STYLE_HTML."ucpmp_style.php");
 	} else if ($cat == 3) {
 		$idYo = $user_row["id"];
 		$resIn = pagination("SELECT * FROM ".$MYSQL_PREFIX."mp WHERE idreceive='$idYo'", getConfig("item_per_page"), "pgin");

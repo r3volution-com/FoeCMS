@@ -13,7 +13,7 @@ if (isset($inadm)) {
 			else echo "<script>alert('"._l("cms_styledeleteerror")."')</script>";
 		}
 		echo "<script>location.href='index.php'</script>";
-	} else  { ?>
+	} else { ?>
 		<b><?php echo _l("acp_addtheme"); ?></b> <br />
 		<?php
 		if ($handle = opendir($ROOT."style")) {
@@ -29,7 +29,7 @@ if (isset($inadm)) {
 				}
 			}
 			closedir($handle);
-		}else echo _l("cms_dirnotfound")." lang";
+		} else echo _l("cms_dirnotfound")." lang";
 	}
 }
 ?>

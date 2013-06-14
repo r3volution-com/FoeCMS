@@ -53,9 +53,7 @@ if (isset($inadm)) {
 			$dirI = fetchQuery("SELECT * FROM ".$MYSQL_PREFIX."category WHERE category_id=".$_POST["cat"]);
 			$ext = getExtension(basename($_FILES['image']['name']));
 			$image = $target."image/".$dirI["url"]."/".$name.".".$ext; 
-			if (!file_exists($target."image/".$dirI["url"])) {
-				mkdir($target."image/".$dirI["url"], 0777, true);
-			} 
+			if (!file_exists($target."image/".$dirI["url"])) mkdir($target."image/".$dirI["url"], 0777, true);
 			move_uploaded_file($_FILES['image']['tmp_name'], $image);
 		}
 		
@@ -64,9 +62,7 @@ if (isset($inadm)) {
 			$dirF = fetchQuery("SELECT * FROM ".$MYSQL_PREFIX."category WHERE category_id=".$_POST["cat"]);
 			$ext = getExtension(basename($_FILES['file']['name']));
 			$file = $target."download/".$dirF["url"]."/".$name.".".$ext; 
-			if (!file_exists($target."download/".$dirF["url"])) {
-				mkdir($target."download/".$dirF["url"], 0777, true);
-			} 
+			if (!file_exists($target."download/".$dirF["url"])) mkdir($target."download/".$dirF["url"], 0777, true);
 			move_uploaded_file($_FILES['file']['tmp_name'], $file);
 		}
 		

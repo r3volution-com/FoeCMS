@@ -6,7 +6,6 @@ if (isset($inadm) && $inadm == 2) {
 		mysql_query($entry) or die(mysql_error());
 		echo "<script>alert('done!');location.href='./index.php'</script>";
 	} else {
-
 } ?>
 <b><?php echo _l("acp_adduser"); ?></b> <br />
 <form action="index.php?r=4" method="POST" ENCTYPE="multipart/form-data" > 

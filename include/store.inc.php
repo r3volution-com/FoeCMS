@@ -12,9 +12,8 @@ if (!function_exists("getext")) {
 		else $urlitem_glob = glob($url);
 		if (isset($urlitem_glob[0])) {
 			$urlitem_glob = pathinfo($urlitem_glob[0]);
-			if ($urlitem_glob["extension"]) {
-				$extensionitem = ".".$urlitem_glob["extension"];
-			} else $extensionitem = "";
+			if ($urlitem_glob["extension"]) $extensionitem = ".".$urlitem_glob["extension"];
+			else $extensionitem = "";
 		} else $extensionitem = "";
 		return $extensionitem;
 	}

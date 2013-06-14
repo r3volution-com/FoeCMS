@@ -34,18 +34,14 @@ if (!isset($_GET["stage"])) {
 					$entry = "UPDATE ".$MYSQL_PREFIX."account SET pass_sha='$sha_pw' WHERE id='".$_SESSION["changepass"]."'";
 					mysql_query($entry);
 					echo "<script>location.href='./msg.php?e=user_passchsuccess'</script>";
-				} else {
-					echo "<script>location.href='./msg.php?e=user_badsecretanswer'</script>";
-				}
+				} else echo "<script>location.href='./msg.php?e=user_badsecretanswer'</script>";
 			} else {
 				if ($_POST["pw"] == $_POST["repw"]) {
 					$sha_pw = mysql_real_escape_string(sha1($_POST["pw"]));
 					$entry = "UPDATE ".$MYSQL_PREFIX."account SET pass_sha='$sha_pw' WHERE id='".$_SESSION["changepass"]."'";
 					mysql_query($entry);
 					echo "<script>location.href='./msg.php?e=user_passchsuccess'</script>";
-				} else {
-					echo "<script>location.href='./msg.php?e=user_badsecretanswer'</script>";
-				}
+				} else echo "<script>location.href='./msg.php?e=user_badsecretanswer'</script>";
 			}
 		} else {
 			include($STYLE_HTML."header.php");

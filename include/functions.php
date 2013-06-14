@@ -48,16 +48,12 @@ if (!function_exists("fetchUserby")) {
 if (!function_exists("_l")) {
 	function _l ($word) {
 		global $LANG;
-		if (isset($LANG["lang_array"][$word])) {
-			return $LANG["lang_array"][$word];
-		} else {
+		if (isset($LANG["lang_array"][$word])) return $LANG["lang_array"][$word];
+		else {
 			global $ROOT;
 			include($ROOT."lang/".$LANG["lang_from"]."/".$LANG["lang_from"].".php");
-			if (isset($language["lang_array"][$word])) {
-				return $language["lang_array"][$word];
-			} else {
-				return $word;
-			}
+			if (isset($language["lang_array"][$word])) return $language["lang_array"][$word];
+			else return $word;
 		}
 	}
 }
@@ -85,9 +81,7 @@ if (!function_exists("checkMP")) {
 		$row = fetchUser();
 		$res = mysql_query("SELECT * FROM ".$MYSQL_PREFIX."mp WHERE idreceive='".$row["id"]."'") or die(mysql_error());
 		while ($row = mysql_fetch_array($res)) {
-			if ($row["read"] == 0) {
-				$nuevosmp++;
-			}
+			if ($row["read"] == 0) $nuevosmp++;
 		}
 		return $nuevosmp;
 	}
@@ -111,14 +105,9 @@ if (!function_exists("checkEmail")) {
 		if(preg_match($exp,$email)){ 
 			$my_temp_variable=explode("@",$email);
 			$my_temp_variable= array_pop($my_temp_variable);
-			if(checkdnsrr($my_temp_variable,"MX")){ 
-				return true; 
-			}else{ 
-				return false; 
-			} 
-		} else { 
-			return false; 
-		} 
+			if(checkdnsrr($my_temp_variable,"MX")) return true; 
+			else return false; 
+		} else return false;
 	} 
 } 
 /* 
@@ -401,11 +390,8 @@ if (!function_exists("getFlags")) {
 }
 if (!function_exists("getImageRoot")) {
 	function getImageRoot($root, $altroot) {
-		if (checkFile($root)) {
-			return $root;
-		} else {
-			return $altroot;
-		}
+		if (checkFile($root)) return $root;
+		else return $altroot;
 	}
 }
 if (!function_exists("getStyles")) { 
@@ -428,7 +414,6 @@ if (!function_exists("getExtension")) {
 		return $ext["extension"];
 	}
 }
-
 
 	/* Created by: DeViaNTe [http://www.gcrew.es] */
 	/* 
@@ -500,13 +485,10 @@ if (!function_exists("cleanTags")) {
 			$child->removeAttribute("onmousemove");			// - user moves the cursor.
 			$child->removeAttribute("onsubmit");			// - user submits a form.
 			$child->removeAttribute("onreset");				// - user resets a form.
-			
-			
+
 			// style hack attempt removal. $child->removeAttribute("style");				// - remove inline styles.
 		}
-		
-		
-		
+
 		//
 		//	SECOND STEP: Image magic.
 		//

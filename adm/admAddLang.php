@@ -23,7 +23,7 @@ if (isset($inadm)) {
 				}
 			}
 			closedir($handle);
-		}else echo "Error no existe el directorio lang";
+		} else echo "Error no existe el directorio lang";
 	}
 }
 ?>

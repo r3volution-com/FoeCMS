@@ -1,7 +1,7 @@
 <?php include("common.php");
 include("include/store.inc.php");
 if (canPost()) {
-	if (isset($_GET["ri"]) && $_GET["ri"]){
+	if (isset($_GET["ri"]) && $_GET["ri"] && is_int($_GET["ri"])){
 		$item_row = fetchQuery("SELECT * FROM ".$MYSQL_PREFIX."item WHERE id=".mysql_real_escape_string($_GET["ri"]));
 		if (isset($item_row["id"])) {
 			$cat_row = fetchQuery("SELECT * FROM ".$MYSQL_PREFIX."category WHERE category_id=".$item_row["category_id"])or die (mysql_error());
@@ -40,7 +40,7 @@ if (canPost()) {
 			if (!file_exists($target."image/".$dir["url"])) mkdir($target."image/".$dir["url"], 0777, true);
 			if (!file_exists($target."download/".$dir["url"])) mkdir($target."download/".$dir["url"], 0777, true);
 		} else $url_name = "";
-		if (isset($_GET["ei"]) && $_GET["ei"]) {
+		if (isset($_GET["ei"]) && $_GET["ei"] && is_int($_GET["ei"])) {
 			$item_row = fetchQuery("SELECT * FROM ".$MYSQL_PREFIX."item WHERE id=".mysql_real_escape_string($_GET["ei"]));
 			
 			if (isset($_FILES['image']['name']) || isset($_FILES['file']['name'])) {
@@ -81,7 +81,8 @@ if (canPost()) {
 			die("<script>location.href='msg.php?e=item_createdsuccessfully'</script>");
 		}
 	} else {
-		if (isset($_GET["ei"]) && $_GET["ei"]) $item_row = fetchQuery("SELECT * FROM ".$MYSQL_PREFIX."item WHERE id=".mysql_real_escape_string($_GET["ei"]));
+		if (isset($_GET["ei"]) && $_GET["ei"] && is_int($_GET["ei"])) $item_row = fetchQuery("SELECT * FROM ".$MYSQL_PREFIX."item WHERE id=".mysql_real_escape_string($_GET["ei"])) or die (mysql_error());
+		else die ("ERROR");
 		include($STYLE_HTML."header.php");
 		include($STYLE_HTML."item_style.php");
 		include($STYLE_HTML."footer.php");

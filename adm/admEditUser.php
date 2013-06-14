@@ -7,45 +7,33 @@ if (isset($inadm) && $inadm == 2) {
 	}
 	if (isset($_POST["e"]) && $_POST["e"] != 1) {
 		$row = fetchQuery("SELECT * FROM ".$MYSQL_PREFIX."account WHERE id=".$_POST["e"]);
-		if (isset($_POST["name"]) && $_POST["name"] != $row["username"]) {
+		if (isset($_POST["name"]) && $_POST["name"] != $row["username"]) 
 			mysql_query("UPDATE ".$MYSQL_PREFIX."account SET username='".$_POST["name"]."' WHERE id='".$_POST["e"]."'") or die(mysql_error());
-		}
 		if (isset($_POST["email"]) && $_POST["email"] != $row["email"]) {
 			mysql_query("UPDATE ".$MYSQL_PREFIX."account SET email='".$_POST["email"]."' WHERE id='".$_POST["e"]."'") or die(mysql_error());
-		}
 		if (isset($_POST["password"]) && $_POST["password"] && $_POST["password"] == $_POST["repassword"] ) {
 			mysql_query("UPDATE ".$MYSQL_PREFIX."account SET pass_sha='".sha1($_POST["password"])."' WHERE id='".$_POST["e"]."'") or die(mysql_error());
-		}
 		if (isset($_POST["secretask"]) && $_POST["secretask"] != $row["secret_ask"]) {
 			mysql_query("UPDATE ".$MYSQL_PREFIX."account SET secret_ask='".$_POST["secretask"]."' WHERE id='".$_POST["e"]."'") or die(mysql_error());
-		}
 		if (isset($_POST["secretanwser"]) && $_POST["secretanswer"]) {
 			mysql_query("UPDATE ".$MYSQL_PREFIX."account SET secret_answer_sha='".sha1($_POST["secretanswer"])."' WHERE id='".$_POST["e"]."'") or die(mysql_error());
-		}
 		if (isset($_POST["level"]) && $_POST["level"] != $row["level"]) {
 			mysql_query("UPDATE ".$MYSQL_PREFIX."account SET level='".$_POST["level"]."' WHERE id='".$_POST["e"]."'") or die(mysql_error());
-		} 
 		if (isset($_POST["avatar"]) && $_POST["avatar"] != $row["avatar"]) {
 			mysql_query("UPDATE ".$MYSQL_PREFIX."account SET avatar='".$_POST["avatar"]."' WHERE id='".$_POST["e"]."'") or die(mysql_error());
-		}
 		if (isset($_POST["sex"]) && $_POST["sex"] != $row["sex"]) {
 			mysql_query("UPDATE ".$MYSQL_PREFIX."account SET sex='".$_POST["sex"]."' WHERE id='".$_POST["e"]."'") or die(mysql_error());
-		}
 		if (isset($_POST["website"]) && $_POST["website"] != $row["website"]) {
 			mysql_query("UPDATE ".$MYSQL_PREFIX."account SET website='".$_POST["website"]."' WHERE id='".$_POST["e"]."'") or die(mysql_error());
-		}
 		if (isset($_POST["invitation"]) && $_POST["invitation"] != $row["invitation"]) {
 			mysql_query("UPDATE ".$MYSQL_PREFIX."account SET invitation='".$_POST["invitation"]."' WHERE id='".$_POST["e"]."'") or die(mysql_error());
-		}
 		echo "<script>alert('done!');location.href='./index.php'</script>";
 	}
 ?>
 <b><?php echo _l("acp_edituser"); ?></b> <br />
 <?php echo _l("cms_search"); ?>: <form action="index.php?r=5" method="POST"><input type="text" align="center" name="user" /> <input type="submit"/></form>
 <?php $sql = "SELECT * FROM ".$MYSQL_PREFIX."account";
-	if (isset($_POST["user"]) && $_POST["user"]) {
-		$sql .= " WHERE username='".$_POST["user"]."'";
-	}
+	if (isset($_POST["user"]) && $_POST["user"]) $sql .= " WHERE username='".$_POST["user"]."'";
 	$res = pagination($sql, 50);
 	while ($row = mysql_fetch_array($res["query_result"])) { 
 		echo $row["id"]." - ".$row["username"]."<a href='index.php?r=".$_GET["r"]."&d=".$row["id"]."'> X </a><br>"; ?>

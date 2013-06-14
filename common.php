@@ -11,13 +11,13 @@ if (file_exists("config.php")) {
 	$found = 0;
 	if (file_exists("install")) die ("<script>location.href='install';</script>");
 	else if (file_exists("../install")) die ("<script>location.href='../install';</script>");
-	else die ("FATAL ERROR");
+	else die ("FATAL ERROR: install folder not found.");
 }
 if ($found) {
 	include_once ($ROOT."include/functions.php");
 	
-	$link = mysql_connect($HOST, $USER, $PASS) or die("Error al conectar a la DB");
-	mysql_select_db($DB, $link) or die("Error al elegir la db"); 
+	$link = mysql_connect($HOST, $USER, $PASS) or die("FATAL ERROR: can't connect to DB");
+	mysql_select_db($DB, $link) or die("FATAL ERROR: can't select DB"); 
 	
 	if (file_exists($ROOT."install") && !strstr($_SERVER['REQUEST_URI'], "msg.php")) die ("<script>location.href='".$ROOT_HTML."msg.php?e=cms_delinstall&r=index.php&nr=1';</script>");
 } 

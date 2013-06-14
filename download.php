@@ -11,10 +11,6 @@ if (checkLogin(true) && (isset($_GET["f"]) && $_GET["f"])) {
 		readfile($url);
 		$t_d = $row["times_downloaded"] + 1;
 		mysql_query("UPDATE ".$MYSQL_PREFIX."item SET times_downloaded=$t_d WHERE id='".$row["id"]."'");
-	} else {
-		die ("<script>location.href='msg.php?e=item_baddownload';</script>");
-	}
-} else {
-	die ("<script>location.href='msg.php?e=item_baddownload';</script>");
-}
+	} else die ("<script>location.href='msg.php?e=item_baddownload';</script>");
+} else die ("<script>location.href='msg.php?e=item_baddownload';</script>");
 ?>

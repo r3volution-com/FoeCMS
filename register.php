@@ -1,10 +1,7 @@
 <?php 
 include("common.php");
-if (isset($_GET["inv"]) && $_GET["inv"]) {
-	$can_register = canRegister($_GET["inv"]);
-} else {
-	$can_register = canRegister();
-}
+if (isset($_GET["inv"]) && $_GET["inv"]) $can_register = canRegister($_GET["inv"]);
+else $can_register = canRegister();
 if (isset($can_register) && $can_register > 0){
 	if (isset($_POST["accountname"]) && isset($_POST["email"])) {
 		if ($can_register == 2) {
@@ -42,10 +39,7 @@ if (isset($can_register) && $can_register > 0){
 		include($STYLE_HTML."register_style.php");
 		include($STYLE_HTML."footer.php");
 	}
-} else if (isset($can_register) && $can_register<0){
-	echo "<script>location.href='./msg.php?e=cms_cantregister&r=login.php'</script>";
-} else if (isset($can_register) && $can_register==0){
-	echo "<script>location.href='./msg.php?e=user_badinvitation&r=login.php'</script>";
-} else {
-	echo "<script>location.href='./login.php'</script>";	
-} ?>
+} else if (isset($can_register) && $can_register<0) echo "<script>location.href='./msg.php?e=cms_cantregister&r=login.php'</script>";
+else if (isset($can_register) && $can_register==0)echo "<script>location.href='./msg.php?e=user_badinvitation&r=login.php'</script>";
+else echo "<script>location.href='./login.php'</script>";	
+?>

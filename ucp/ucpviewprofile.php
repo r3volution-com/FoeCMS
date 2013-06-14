@@ -1,19 +1,19 @@
 <?php 
-	include("../common.php");
+include("../common.php");
 if (checkLogin() && $_GET["u"] == $_SESSION[getConfig("cookie_prefix")."_userid"]) header("location: index.php");
-if (isset($_GET["u"]) && checkLogin()) {
+if (isset($_GET["u"]) && is_int($_GET["u"]) && checkLogin()) {
 	$user_row = fetchUser($_GET["u"]);
 	if (isset($user_row["id"])) {
 		$user_row["visitor_number"]++;
-		if ($user_row["id"] != $_SESSION[getConfig("cookie_prefix")."_userid"]) mysql_query("UPDATE ".$MYSQL_PREFIX."account SET visitor_number=".$user_row["visitor_number"]."+1 WHERE id='".$_GET["u"]."'") or die(mysql_error());
+		if ($user_row["id"] != $_SESSION[getConfig("cookie_prefix")."_userid"]) mysql_query("UPDATE ".$MYSQL_PREFIX."account SET visitor_number=".$user_row["visitor_number"]."+1 WHERE id='".mysql_real_escape_string($_GET["u"])."'") or die(mysql_error());
 		if (isset($_GET["r"]) && $user_row["id"] != $_SESSION[getConfig("cookie_prefix")."_userid"]) {
 			$repact = $user_row["reputation"];
 			if ($_GET["r"] == 1) {
 				$repnew = $repact+1;
-				mysql_query("UPDATE ".$MYSQL_PREFIX."account SET reputation='".$repnew."' WHERE id='".$_GET["u"]."'") or die(mysql_error());
+				mysql_query("UPDATE ".$MYSQL_PREFIX."account SET reputation='".$repnew."' WHERE id='".mysql_real_escape_string($_GET["u"])."'") or die(mysql_error());
 			} else {
 				$repnew = $repact-1;
-				mysql_query("UPDATE ".$MYSQL_PREFIX."account SET reputation='".$repnew."' WHERE id='".$_GET["u"]."'") or die(mysql_error());
+				mysql_query("UPDATE ".$MYSQL_PREFIX."account SET reputation='".$repnew."' WHERE id='".mysql_real_escape_string($_GET["u"])."'") or die(mysql_error());
 			}
 			echo "<script>location.href='./ucpviewprofile.php?u=".$_GET["u"]."'</script>";
 		} else {
@@ -25,7 +25,5 @@ if (isset($_GET["u"]) && checkLogin()) {
 			include($STYLE_HTML."footer.php");
 		}
 	} else die("<script>location.href='../index.php'</script>");
-} else {
-	if (!checkLogin())goToLogin();
-}
+} else if (!checkLogin()) goToLogin();
 ?>

@@ -1,7 +1,7 @@
 <?php 
 include("../common.php");
 include($STYLE_HTML."functions.style.php");
-	if (checkLogin() && $user_row["level"] > 0) { 
+	if (checkLogin() && $user_row["level"] > 0) {
 		$inadm = $user_row["level"];
 	?>
 <html>
@@ -80,9 +80,8 @@ include($STYLE_HTML."functions.style.php");
 		else if ($_GET["r"] == 16) include("admAddLang.php");
 		else echo _l("acp_badoption");
 	}
-} else {
-	die("<script>location.href='../index.php';</script>");
-} ?>
+} else die("<script>location.href='../index.php';</script>");
+?>
 </div>
 </body>
 </html>
